@@ -64,10 +64,10 @@ func TestOfflineStores(t *testing.T) {
 		"LabelTableNotFound":      testLabelTableNotFound,
 		"FeatureTableNotFound":    testFeatureTableNotFound,
 		"TrainingDefShorthand":    testTrainingSetDefShorthand,
-		"PrimaryTableCreate":      testPrimaryCreateTable,
-		"PrimaryTableWrite":       testPrimaryTableWrite,
 	}
 	testSQLFns := map[string]func(*testing.T, SQLOfflineStore){
+		"PrimaryTableCreate": testPrimaryCreateTable,
+		"PrimaryTableWrite":  testPrimaryTableWrite,
 		"Transformation":     testTransform,
 		"TransformToFeature": testTransformCreateFeature,
 	}
@@ -905,7 +905,7 @@ func testTrainingSetDefShorthand(t *testing.T, store OfflineStore) {
 	}
 }
 
-func testPrimaryCreateTable(t *testing.T, store OfflineStore) {
+func testPrimaryCreateTable(t *testing.T, store SQLOfflineStore) {
 	type TestCreateCase struct {
 		Rec         ResourceID
 		Schema      TableSchema
@@ -989,7 +989,7 @@ func testPrimaryCreateTable(t *testing.T, store OfflineStore) {
 	}
 }
 
-func testPrimaryTableWrite(t *testing.T, store OfflineStore) {
+func testPrimaryTableWrite(t *testing.T, store SQLOfflineStore) {
 	type TestCase struct {
 		Rec         ResourceID
 		Schema      TableSchema
