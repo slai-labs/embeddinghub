@@ -59,7 +59,7 @@ message Feature {
 message Schema {
     string entity = 1;
     string value = 2;
-    optional string ts = 3;
+    string ts = 3;
     string source = 4;
 }
 
@@ -165,7 +165,8 @@ message SourceVariant {
     string description = 5;
     string provider = 6;
     string created = 7;
-    repeated NameVariant trainingsets = 8;
-    repeated NameVariant features = 9;
-    repeated NameVariant labels = 10;
+    string table = 8;
+    repeated NameVariant trainingsets = 9;
+    repeated NameVariant features = 10;
+    repeated NameVariant labels = 11;
 }
