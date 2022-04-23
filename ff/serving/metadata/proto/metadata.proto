@@ -56,6 +56,13 @@ message Feature {
     repeated string variants = 3;
 }
 
+message Schema {
+    string entity = 1;
+    string value = 2;
+    string ts = 3;
+    string source = 4;
+}
+
 message FeatureVariant {
     string name = 1;
     string variant = 2;
@@ -67,6 +74,7 @@ message FeatureVariant {
     string description = 8;
     string provider = 9;
     repeated NameVariant trainingsets = 10;
+    Schema schema = 11;
 }
 
 message Label {
@@ -86,6 +94,7 @@ message LabelVariant {
     string owner = 8;
     string provider = 9;
     repeated NameVariant trainingsets = 10;
+    Schema schema = 11;
 }
 
 message Provider {

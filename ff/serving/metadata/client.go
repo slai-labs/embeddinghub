@@ -37,6 +37,31 @@ func parseNameVariant(serialized *pb.NameVariant) NameVariant {
 	}
 }
 
+type Schema struct {
+	Entity      string
+	Value       string
+	TS          string
+	SourceTable string
+}
+
+func (s Schema) Serialize() *pb.Schema {
+	return &pb.Schema{
+		Entity: s.Entity,
+		Value:  s.Value,
+		Ts:     s.TS,
+		Source: s.SourceTable,
+	}
+}
+
+func parseSchema(serialized *pb.Schema) Schema {
+	return Schema{
+		Entity:      serialized.Entity,
+		Value:       serialized.Value,
+		TS:          serialized.Ts,
+		SourceTable: serialized.Source,
+	}
+}
+
 type NameVariants []NameVariant
 
 func (variants NameVariants) Serialize() []*pb.NameVariant {
@@ -172,6 +197,7 @@ type FeatureDef struct {
 	Owner       string
 	Description string
 	Provider    string
+	Schema      Schema
 }
 
 func (def FeatureDef) ResourceType() ResourceType {
@@ -188,6 +214,7 @@ func (client *Client) CreateFeatureVariant(ctx context.Context, def FeatureDef) 
 		Owner:       def.Owner,
 		Description: def.Description,
 		Provider:    def.Provider,
+		Schema:      def.Schema.Serialize(),
 	}
 	_, err := client.grpcConn.CreateFeatureVariant(ctx, serialized)
 	return err
@@ -271,6 +298,7 @@ type LabelDef struct {
 	Entity      string
 	Owner       string
 	Provider    string
+	Schema      Schema
 }
 
 func (def LabelDef) ResourceType() ResourceType {
@@ -287,6 +315,7 @@ func (client *Client) CreateLabelVariant(ctx context.Context, def LabelDef) erro
 		Entity:      def.Entity,
 		Owner:       def.Owner,
 		Provider:    def.Provider,
+		Schema:      def.Schema.Serialize(),
 	}
 	_, err := client.grpcConn.CreateLabelVariant(ctx, serialized)
 	return err
